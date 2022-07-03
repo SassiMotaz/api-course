@@ -2,10 +2,24 @@
 
 namespace App\Entity;
 
-use App\Repository\InvoiceRepository;
+use App\Entity\Customer;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\InvoiceRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\DataProvider\Pagination;
+use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
+/**
+ * @ApiResource(attributes={
+ * "pagination_enabled"=true, 
+ * "pagination_items_per_page"=20,
+ * "order"={"amount": "DESC"}
+ * })
+ * @ApiFilter(OrderFilter::class, properties={"amount","SentAt"})
+ */
+
 class Invoice
 {
     #[ORM\Id]
