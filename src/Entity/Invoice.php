@@ -30,8 +30,8 @@ use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter;
  * }
  * }},
  * attributes={
- * "pagination_enabled"=true, 
- * "pagination_items_per_page"=20,
+ * "pagination_enabled"=false, 
+ * "pagination_items_per_page"=10,
  * "order"={"amount": "DESC"}
  * },
  * normalizationContext={"groups"={"invoices_read"}},
