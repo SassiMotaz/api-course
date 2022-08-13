@@ -1,8 +1,8 @@
 import axios from "axios";
 
-function FindAll() {
-    return axios.get("https://127.0.0.1:8000/api/customers")
-        .then(response => response.data["hydra:member"]);
+async function FindAll() {
+    const response = await axios.get("https://127.0.0.1:8000/api/customers");
+    return response.data["hydra:member"];
 }
 
 function deleteCustomer(id) {
