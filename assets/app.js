@@ -15,12 +15,16 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+
 import PriavteRoute from './components/PriavteRoute';
 import CustomersPage from './pages/CustomersPage';
 import HomePage from './pages/HomePage';
 import InvoicesPage from './pages/InvoicesPage';
 import LoginPage from './pages/LoginPage';
 import AuthAPI from './services/AuthAPI';
+import CustomerPage from './pages/CustomerPage';
+import InvoicePage from './pages/InvoicePage';
+import RegisterPage from './pages/RegisterPage';
 
 AuthAPI.Setup();
 
@@ -41,7 +45,10 @@ const App = () => {
             <main className="container pt-5">
                 <Switch>
                     <Route path={'/Login'} component={LoginPage} />
+                    <Route path={'/Register'} component={RegisterPage} />
                     <PriavteRoute path={'/Invoices'}  component={InvoicesPage} />
+                    <PriavteRoute path={'/Invoice/:id'} component={InvoicePage} />
+                    <PriavteRoute path={'/Customers/:id'} component={CustomerPage} />
                     <PriavteRoute path={'/Customers'} component={CustomersPage} />
                     <Route path="/" component={HomePage} />
                 </Switch>

@@ -1,8 +1,7 @@
-import axios from 'axios';
 import React, { useContext, useState } from 'react';
+import Field from '../components/forms/Field';
 import AuthContext from '../Contexts/AuthContext';
 import AuthAPI from '../services/AuthAPI';
-import customersAPI from '../services/customersAPI';
 
 const LoginPage = ({history}) => {
     const { setIsAuthenticated } = useContext(AuthContext);
@@ -36,15 +35,9 @@ const LoginPage = ({history}) => {
             <h1>Connexion a l'application</h1>
             <div className="container">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="username">Adresse Email</label>
-                        <input type="text" className={"form-control" + (error && " is-invalid")} name="username" placeholder="Adresse Email" id='username' value={creditentials.username} onChange={handleChange} />
-                        {error && <div className="invalid-feedback">{error}</div>}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Mot de Passe</label>
-                        <input type="password" className="form-control" name="password" placeholder="Mot de Passe" id='password' value={creditentials.password} onChange={handleChange} />
-                    </div>
+                    <Field name="username" label="Adresse email" value={creditentials.username} onChange={handleChange} placeholder="Adresse email" />
+                    <Field name="password" label="Mot de passe" value={creditentials.password} onChange={handleChange} placeholder="Mot de passe" type="password" />
+                   
                     <div className="form-group mt-2">
                         <button type="submit" className="btn btn-success">je me connecte</button>
                     </div>

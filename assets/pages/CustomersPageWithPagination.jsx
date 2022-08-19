@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Pagination from '../components/Pagination';
 import customersAPI from '../services/customersAPI';
 

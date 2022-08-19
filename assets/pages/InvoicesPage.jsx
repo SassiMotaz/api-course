@@ -6,6 +6,7 @@ import Pagination from '../components/Pagination';
 
 import moment from 'moment';
 import invoicesAPI from '../services/invoicesAPI';
+import { Link } from 'react-router-dom';
 
 const STATUS_CLASSES = {
     PAID: 'badge bg-success',
@@ -77,7 +78,10 @@ const InvoicesPage = (props) => {
 
     return (
         <>
-            <h1>Liste des clients</h1>
+            <div className="d-flex justify-content-between align-items-center">
+            <h1>Liste des factures</h1> 
+            <Link to="/invoice/new" className="btn btn-primary">Créer une facture</Link>
+            </div>
             <div className="form-group">
                 <input className="form-control me-sm-2" type="text" placeholder="Rechercher" value={search} onChange={handleSearch} ></input>
             </div>
@@ -101,7 +105,7 @@ const InvoicesPage = (props) => {
                             <td><span className={STATUS_CLASSES[invoice.status]}>{STATUS_LABELS[invoice.status]}</span></td>
                             <td>{invoice.amount.toLocaleString()} €</td>
                             <td>
-                                <button className="btn btn-sm btn-primary">Editer</button>
+                                <Link to={"/invoice/" + invoice.id} className="btn btn-sm btn-primary mr-1">Editer</Link>
                                 <button className="btn btn-sm btn-danger mx-1" onClick={()=>handleDelete(invoice.id)}>Supprimer</button>
                             </td>
                         </tr>

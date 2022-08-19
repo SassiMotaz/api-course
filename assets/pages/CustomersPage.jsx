@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Pagination from '../components/Pagination';
 import customersAPI from '../services/customersAPI';
 
@@ -52,7 +53,10 @@ const CustomersPage = () => {
 
     return (
         <>
-            <h1>Liste des clients</h1>
+            <div className=" mb-3 d-flex justify-content-between align-items-center">
+                <h1>Liste des clients</h1>
+                <Link to="/customers/new" className="btn btn-primary">Créer un client</Link>
+            </div>
             <div className="form-group">
                 <input className="form-control me-sm-2" type="text" placeholder="Rechercher" value={search} onChange={handleSearch} ></input>
             </div>
