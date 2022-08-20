@@ -2,12 +2,16 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthAPI from '../services/AuthAPI';
 import AuthContext from '../Contexts/AuthContext';
+import { toast } from 'react-toastify';
 
-const Navbar = ({ history}) => {
-    const { isAuthenticated, setIsAuthenticated } = React.useContext(AuthContext); 
-   const handleLogout = () => {
-   AuthAPI.Logout();
+
+const Navbar = ({ history }) => {
+  const { isAuthenticated, setIsAuthenticated } = React.useContext(AuthContext);
+  const handleLogout = () => {
+    AuthAPI.Logout();
     setIsAuthenticated(false);
+
+    toast.success("Vous êtes désormais déconnecté");
     history.push('/login');
   }
   return (<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -30,13 +34,13 @@ const Navbar = ({ history}) => {
           {(!isAuthenticated && (<><li className="nav-item">
             <NavLink className="nav-link" to="/register" >Inscrption</NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="btn btn-success nav-link" to="/login" >Connexion</NavLink>
-          </li> </>))||( 
-          <li className="nav-item">
-            <button  onClick={handleLogout}   className="btn btn-danger mx-2" >Déconnexion</button>
-          </li>
-          )}
+            <li className="nav-item">
+              <NavLink className="btn btn-success nav-link" to="/login" >Connexion</NavLink>
+            </li> </>)) || (
+              <li className="nav-item">
+                <button onClick={handleLogout} className="btn btn-danger mx-2" >Déconnexion</button>
+              </li>
+            )}
         </ul>
       </div>
     </div>

@@ -4,9 +4,11 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import Pagination from '../components/Pagination';
 
+
 import moment from 'moment';
 import invoicesAPI from '../services/invoicesAPI';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const STATUS_CLASSES = {
     PAID: 'badge bg-success',
@@ -31,7 +33,7 @@ const InvoicesPage = (props) => {
             setInvoices(data);
         }
         catch (error) {
-            console.log(error.response);
+            toast.error("Erreur lors du chargement des factures");
         }
     }
     useEffect(() => {
@@ -49,10 +51,12 @@ const InvoicesPage = (props) => {
         setInvoices(invoices.filter(invoice => invoice.id !== id));
         try {
             await invoicesAPI.deleteInvoice(id);
+            toast.success("La facture a bien été supprimée");
         }
         catch (error) {
+            toast.error("La facture n'a pas pu être supprimée");
             setInvoices(originalInvoices);
-            console.log(error.response);
+
         }
     }
     const handlePageChange = (page) => {
@@ -64,7 +68,7 @@ const InvoicesPage = (props) => {
         setSearch(event.currentTarget.value);
         setCurrentPage(1);
     }
-    
+
 
 
     const filteredInvoices = invoices.filter(i =>
@@ -79,8 +83,8 @@ const InvoicesPage = (props) => {
     return (
         <>
             <div className="d-flex justify-content-between align-items-center">
-            <h1>Liste des factures</h1> 
-            <Link to="/invoice/new" className="btn btn-primary">Créer une facture</Link>
+                <h1>Liste des factures</h1>
+                <Link to="/invoice/new" className="btn btn-primary">Créer une facture</Link>
             </div>
             <div className="form-group">
                 <input className="form-control me-sm-2" type="text" placeholder="Rechercher" value={search} onChange={handleSearch} ></input>
@@ -100,13 +104,17 @@ const InvoicesPage = (props) => {
                     {items.map(invoice =>
                         <tr key={invoice.id} className='text-center'>
                             <td>{invoice.chrono}</td>
-                            <td>{invoice.customer.firstName} {invoice.customer.lastName}</td>
+                            <td>
+                                <Link to={`/customers/${invoice.customer.id}`}>
+                                    {invoice.customer.firstName} {invoice.customer.lastName}
+                                </Link>
+                            </td>
                             <td>{formatdate(invoice.sentAt)}</td>
                             <td><span className={STATUS_CLASSES[invoice.status]}>{STATUS_LABELS[invoice.status]}</span></td>
                             <td>{invoice.amount.toLocaleString()} €</td>
                             <td>
                                 <Link to={"/invoice/" + invoice.id} className="btn btn-sm btn-primary mr-1">Editer</Link>
-                                <button className="btn btn-sm btn-danger mx-1" onClick={()=>handleDelete(invoice.id)}>Supprimer</button>
+                                <button className="btn btn-sm btn-danger mx-1" onClick={() => handleDelete(invoice.id)}>Supprimer</button>
                             </td>
                         </tr>
                     )}

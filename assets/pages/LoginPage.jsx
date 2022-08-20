@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import Field from '../components/forms/Field';
 import AuthContext from '../Contexts/AuthContext';
 import AuthAPI from '../services/AuthAPI';
+import {toast} from 'react-toastify';
 
 const LoginPage = ({history}) => {
     const { setIsAuthenticated } = useContext(AuthContext);
@@ -23,9 +24,11 @@ const LoginPage = ({history}) => {
             await AuthAPI.authenticate(creditentials);
             setError("");
             setIsAuthenticated(true);
+            toast.success("Vous êtes désormais connecté");
             history.replace('/customers');
         } catch (error) {
             setError("Aucun Compte ne poséde cette adresse email ou alors les informations saisies sont incorrectes");
+            toast.error("Une erreur est survenue");
         }
     }
 
