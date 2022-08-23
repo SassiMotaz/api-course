@@ -49,8 +49,8 @@ const CustomersPage = () => {
         setSearch(event.currentTarget.value);
         setCurrentPage(1);
     }
-    const filteredCustomers = customers.filter(c =>
-        c.firstName.toLowerCase().includes(search.toLowerCase())
+    const filteredCustomers = customers.filter(c => 
+    c.firstName.toLowerCase().includes(search.toLowerCase())
         || c.lastName.toLowerCase().includes(search.toLowerCase())
         || c.email.toLowerCase().includes(search.toLowerCase())
         || c.company.toLowerCase().includes(search.toLowerCase()));
